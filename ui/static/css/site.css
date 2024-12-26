@@ -17,6 +17,17 @@ video {
   left: 0;
 }
 
+.cover {
+  object-fit: cover;
+  width: 100vw;
+  height:100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0.3;
+}
+
 .viewport-header {
   position: absolute;
   /* height: 100vh; */
@@ -25,6 +36,7 @@ video {
   display: block;
   align-items: center;
   justify-content: center;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 .sitebanner {
@@ -64,7 +76,7 @@ footer {
 }
 
 .links ul li {
-  margin: 0 3.2rem;
+  margin: 0 2rem;
   float: left;
 }
 
@@ -72,4 +84,16 @@ footer {
   color: white;
   text-decoration: none;
   display: block;
+}
+
+#profile {
+  border: 2px solid white;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+}
+
+#brand {
+  height: 5rem;
+  width: 5rem;
 }

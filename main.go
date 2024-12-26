@@ -35,6 +35,7 @@ func main() {
 	r.Use(middleware.Timeout(3 * time.Second))
 
 	r.Get("/", app.index)
+	r.Get("/favicon.ico", app.favicon)
 
 	// Serve remaining static files
 	sub, err := fs.Sub(StaticFiles, "ui")
@@ -65,4 +66,8 @@ type app struct {
 
 func (app *app) index(w http.ResponseWriter, r *http.Request) {
 	app.Templates.ExecuteTemplate(w, "index.html", nil)
+}
+
+func (app *app) favicon(w http.ResponseWriter, r *http.Request) {
+	http.ServeFileFS(w, r, StaticFiles, "static/media/favicon.ico")
 }
