@@ -1,0 +1,75 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.viewport-header {
+  position: absolute;
+  /* height: 100vh; */
+  width: 100vw;
+  text-align: center;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
+.sitebanner {
+  font-size: 6em;
+  font-variant: small-caps;
+}
+
+footer {
+  position: fixed;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  left: 0;
+  height: 10vh;
+  width: 100vw;
+}
+
+.links-container {
+  display: flex;
+  float: left;
+  font-size: 3rem;
+  width: 40vw;
+  margin-left: 30vw;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.links ul {
+  display: flex;
+  list-style: none;
+}
+
+.links ul li {
+  margin: 0 3.2rem;
+  float: left;
+}
+
+.links ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
