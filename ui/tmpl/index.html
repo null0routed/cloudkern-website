@@ -4,32 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudKern</title>
+    <title>CloudKern — Andrew Kern</title>
+    <link rel="icon" href="static/media/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/css/site.css">
 </head>
 
 <body>
-    <video playsinline autoplay muted loop poster="static/media/bg.jpg" id="bgvid">
-        <source src="static/media/bg.mp4" type="video/mp4">
-    </video>
-    <div class="cover"></div>
-    <header class="viewport-header">
-        <h1 class="sitebanner">Cl<img id="brand" src="static/media/ck.png" />udKern</h1>
-        <div class="links-container">
-            <nav class="links">
-                <ul>
-                    <li><a href="https://github.com/null0routed"><ion-icon name="logo-github"></ion-icon></a></li>
-                    <li><a href="https://x.com/AndyFromIT"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                    <li><img id="profile" src="static/media/profile.jpg" /></li>
-                    <li><a href="https://www.codewars.com/users/null0route"><ion-icon name="code-working-outline"></ion-icon></a></li>
-                    <li><a href="https://www.credly.com/users/andrew-kern.7d26d367"><ion-icon name="person-circle-outline"></ion-icon></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <footer>
-        <p>&copy; 2024 CloudKern. All rights reserved.</p>
-    </footer>
+    <main class="hero">
+        <img class="avatar" src="static/media/profile.jpg" alt="Andrew Kern">
+        <h1 class="wordmark">CloudKern</h1>
+        <nav class="links" aria-label="Profiles">
+            <a href="https://github.com/null0routed" aria-label="GitHub" target="_blank" rel="noopener">
+                <ion-icon name="logo-github"></ion-icon>
+            </a>
+            <a href="https://x.com/AndyFromIT" aria-label="X" target="_blank" rel="noopener">
+                <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+            <a href="https://www.codewars.com/users/null0route" aria-label="Codewars" target="_blank" rel="noopener">
+                <ion-icon name="code-working-outline"></ion-icon>
+            </a>
+            <a href="https://www.credly.com/users/andrew-kern.7d26d367" aria-label="Credly" target="_blank" rel="noopener">
+                <ion-icon name="person-circle-outline"></ion-icon>
+            </a>
+        </nav>
+    </main>
+
+    <div class="cv">
+        <ul class="cv-menu" id="cv-menu" role="menu">
+            <li role="none"><a role="menuitem" href="#">Projects</a></li>
+            <li role="none"><a role="menuitem" href="#">Talks</a></li>
+            <li role="none"><a role="menuitem" href="#">Papers</a></li>
+            <li role="none"><a role="menuitem" href="static/media/resume.pdf">Résumé</a></li>
+        </ul>
+        <button class="cv-toggle" id="cv-toggle" type="button" aria-haspopup="true" aria-expanded="false"
+            aria-controls="cv-menu">
+            <span>CV</span>
+            <ion-icon name="chevron-up-outline"></ion-icon>
+        </button>
+    </div>
+
+    <footer>&copy; 2026 CloudKern. All rights reserved.</footer>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="static/js/site.js"></script>

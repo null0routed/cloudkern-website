@@ -69,5 +69,7 @@ func (app *app) index(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *app) favicon(w http.ResponseWriter, r *http.Request) {
-	http.ServeFileFS(w, r, StaticFiles, "static/media/favicon.ico")
+	// StaticFiles is rooted at "ui/static/..." because of how go:embed
+	// keeps the path it was given — this must match that root exactly.
+	http.ServeFileFS(w, r, StaticFiles, "ui/static/media/favicon.ico")
 }
