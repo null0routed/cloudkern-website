@@ -18,6 +18,9 @@ var TmplFiles embed.FS
 //go:embed all:ui/static
 var StaticFiles embed.FS
 
+//go:embed all:ui/root
+var RootFiles embed.FS
+
 func main() {
 
 	app := &app{
@@ -35,7 +38,7 @@ func main() {
 	r.Use(middleware.Timeout(3 * time.Second))
 
 	r.Get("/", app.index)
-	r.Get("/favicon.ico", app.favicon)
+	//r.Get("/favicon.ico", app.favicon)
 
 	// Serve remaining static files
 	sub, err := fs.Sub(StaticFiles, "ui")
@@ -45,6 +48,9 @@ func main() {
 	fs := http.FileServer(http.FS(sub))
 	//r.Mount("/static", http.StripPrefix("ui/static", fs))
 	r.Mount("/static", fs)
+
+	// Load static root directory files e.g. favicon
+	app.loadStaticRoutes(r, RootFiles, "ui/root")
 
 	// HTTPS server struct utilizing application
 	srv := &http.Server{
@@ -72,4 +78,22 @@ func (app *app) favicon(w http.ResponseWriter, r *http.Request) {
 	// StaticFiles is rooted at "ui/static/..." because of how go:embed
 	// keeps the path it was given — this must match that root exactly.
 	http.ServeFileFS(w, r, StaticFiles, "ui/static/media/favicon.ico")
+}
+
+func (app *app) loadStaticRoutes(r *chi.Mux, fileSys fs.FS, path string) {
+	rootEntries, err := fs.ReadDir(fileSys, path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, entry := range rootEntries {
+		if entry.IsDir() {
+			continue
+		}
+
+		name := entry.Name()
+		r.Get("/"+name, func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFileFS(w, r, fileSys, path+"/"+name)
+		})
+	}
 }

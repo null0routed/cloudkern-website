@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="static/css/site.css">
 </head>
 
-<body>
+<body class="video-background">
     <main class="hero">
         <img class="avatar" src="static/media/profile.jpg" alt="Andrew Kern">
         <h1 class="wordmark">CloudKern</h1>
@@ -21,7 +21,7 @@
                 <ion-icon name="logo-github"></ion-icon>
             </a>
             <a href="https://x.com/AndyFromIT" aria-label="X" target="_blank" rel="noopener">
-                <ion-icon name="logo-twitter"></ion-icon>
+                <ion-icon name="logo-x"></ion-icon>
             </a>
             <a href="https://www.codewars.com/users/null0route" aria-label="Codewars" target="_blank" rel="noopener">
                 <ion-icon name="code-working-outline"></ion-icon>
@@ -30,14 +30,17 @@
                 <ion-icon name="person-circle-outline"></ion-icon>
             </a>
         </nav>
+        <video autoplay loop muted playsinline class="video-bg" poster="static/media/bg.jpg">
+            <source src="static/media/bg.mp4" type="video/mp4">
+        </video>
     </main>
 
     <div class="cv">
         <ul class="cv-menu" id="cv-menu" role="menu">
-            <li role="none"><a role="menuitem" href="#">Projects</a></li>
-            <li role="none"><a role="menuitem" href="#">Talks</a></li>
-            <li role="none"><a role="menuitem" href="#">Papers</a></li>
-            <li role="none"><a role="menuitem" href="static/media/resume.pdf">Résumé</a></li>
+            <li role="none"><button role="menuitem" class="accordion-toggle">Projects</button><ul class="accordion-content hidden"><li>Link to Projects</li></ul></li>
+            <li role="none"><button role="menuitem" class="accordion-toggle">Talks</button><ul class="accordion-content hidden"><li>Link to Talks</li></ul></li>
+            <li role="none"><button role="menuitem" class="accordion-toggle">Papers</button><ul class="accordion-content hidden"><li>Link to Papers</li></ul></li>
+            <li role="none"><a href="static/media/resume.pdf" role="menuitem" class="full-width-link">Résumé</a></li>
         </ul>
         <button class="cv-toggle" id="cv-toggle" type="button" aria-haspopup="true" aria-expanded="false"
             aria-controls="cv-menu">
@@ -48,9 +51,10 @@
 
     <footer>&copy; 2026 CloudKern. All rights reserved.</footer>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
     <script src="static/js/site.js"></script>
 </body>
 
 </html>
+

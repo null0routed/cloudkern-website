@@ -1,12 +1,14 @@
 :root {
   --bg: #14151a;
   --surface: #1d1f24;
+  --surface-flipped: #dfdfdf;
   --text-primary: #ece9e2;
   --text-secondary: #8b8a85;
   --accent: #6fcdb2;
   --border: rgba(255, 255, 255, 0.08);
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
+  --cv-menu: #f0f0c9;
 }
 
 * {
@@ -40,11 +42,12 @@ body {
 }
 
 .avatar {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
   border-radius: 50%;
   border: 1px solid var(--border);
   object-fit: cover;
+  z-index: 1;
 }
 
 .wordmark {
@@ -54,13 +57,23 @@ body {
   font-size: clamp(2.5rem, 8vw, 5rem);
   letter-spacing: -0.02em;
   animation: kern-in 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  z-index: 1;
+}
+
+.video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 /* A nod to the name: the wordmark settles from loose to its final
    kerning on load, instead of just fading in. */
 @keyframes kern-in {
   from {
-    letter-spacing: 0.5em;
+    letter-spacing: 0.7em;
     opacity: 0;
   }
 
@@ -74,11 +87,29 @@ body {
   .wordmark {
     animation: none;
   }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    z-index: 1;
+  }
+
+  @keyframes slide-in-fade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 .links {
   display: flex;
   gap: 1.5rem;
+  z-index: 1;
 }
 
 .links a {
@@ -93,17 +124,14 @@ body {
   color: var(--accent);
 }
 
-/* CV menu: fixed to the bottom-left corner, the menu opens upward
-   from the toggle and overlays the page rather than pushing content. */
 .cv {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
+  margin: 3rem auto;
+  max-width: 600px; 
   z-index: 10;
 }
 
 .cv-toggle {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.4rem;
   background: var(--surface);
@@ -116,6 +144,7 @@ body {
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: border-color 0.2s ease;
+  transform: rotate(180deg);
 }
 
 .cv-toggle:hover,
@@ -133,13 +162,13 @@ body {
 }
 
 .cv-menu {
-  position: absolute;
+  position: static;
   bottom: calc(100% + 0.6rem);
   left: 0;
   margin: 0;
   padding: 0.4rem;
   list-style: none;
-  background: var(--surface);
+  background: var(--cv-menu);
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   min-width: 10rem;
@@ -148,6 +177,29 @@ body {
   transform: translateY(0.5rem);
   pointer-events: none;
   transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@keyframes slide-in-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .cv-menu {
+    min-width: 28rem;
+    width:28rem; 
+    padding: 0.6rem;
+  }
+
+  .cv-menu a {
+    font-size: 1rem;
+  }
 }
 
 .cv-menu.open {
@@ -173,6 +225,53 @@ body {
   color: var(--text-primary);
 }
 
+/* General styling for menu items/toggles */
+.cv-menu li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cv-menu li:last-child {
+    border-bottom: none;
+}
+
+.accordion-toggle, .full-width-link, .cv-menu a {
+  display: flex; /* Allows icon/text alignment if needed */
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%; /* Fill the menu container */
+  text-align: left;
+  color: #1a1a1a; /* Dark text color for high contrast */
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion-toggle:hover, .full-width-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Accordion content area */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding: 0; /* Padding handled by nested links/items */
+}
+
+.accordion-content li a {
+    display: block;
+    padding: 1rem 1.5rem 1rem 2.5rem; /* Indented padding */
+    font-size: 0.95rem;
+    color: #333; /* Slightly different dark shade for sublinks */
+}
+
+.cv-menu li[aria-expanded="true"] > .accordion-content {
+  max-height: 200px; /* Needs to be larger than content height */
+}
+
 footer {
   position: fixed;
   bottom: 1.5rem;
@@ -182,7 +281,7 @@ footer {
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 479px) {
   footer {
     display: none;
   }
