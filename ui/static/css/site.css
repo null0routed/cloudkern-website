@@ -8,7 +8,8 @@
   --border: rgba(255, 255, 255, 0.08);
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
-  --cv-menu: #f0f0c9;
+  --cv-menu: #f5f2ea;
+  --cv-menu-text: #16171b;
 }
 
 * {
@@ -125,31 +126,50 @@ body {
 }
 
 .cv {
-  margin: 3rem auto;
-  max-width: 600px; 
+  position: fixed;
+  bottom: 1.75rem;
+  left: 1.75rem;
   z-index: 10;
 }
 
 .cv-toggle {
-  display: none;
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   background: var(--surface);
   color: var(--text-primary);
   border: 1px solid var(--border);
   border-radius: 999px;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.1rem;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+  font-weight: 500;
   letter-spacing: 0.04em;
   cursor: pointer;
-  transition: border-color 0.2s ease;
-  transform: rotate(180deg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .cv-toggle:hover,
 .cv-toggle:focus-visible {
   border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .cv-toggle {
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    border-width: 1.5px;
+    border-color: var(--accent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(111, 205, 178, 0.18);
+  }
+
+  .cv-toggle:hover,
+  .cv-toggle:focus-visible {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(111, 205, 178, 0.28);
+  }
 }
 
 .cv-toggle ion-icon {
@@ -162,7 +182,7 @@ body {
 }
 
 .cv-menu {
-  position: static;
+  position: absolute;
   bottom: calc(100% + 0.6rem);
   left: 0;
   margin: 0;
@@ -170,6 +190,7 @@ body {
   list-style: none;
   background: var(--cv-menu);
   border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
   border-radius: 0.75rem;
   min-width: 10rem;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
@@ -198,6 +219,33 @@ body {
   }
 
   .cv-menu a {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cv-toggle {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(111, 205, 178, 0.22);
+  }
+
+  .cv-menu {
+    min-width: 34rem;
+    width: 34rem;
+    padding: 0.75rem;
+    border-top-width: 4px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+  }
+
+  .cv-menu a,
+  .accordion-toggle,
+  .full-width-link {
+    font-size: 1.05rem;
+    padding: 1.15rem 1.75rem;
+  }
+
+  .accordion-content li a {
     font-size: 1rem;
   }
 }
