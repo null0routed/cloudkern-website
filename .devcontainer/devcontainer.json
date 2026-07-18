@@ -3,14 +3,19 @@
 {
 	"name": "Go",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/go:bookworm",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--network=host"
+	],
 	"features": {
 		"ghcr.io/devcontainers/features/go:latest": {
 			"version": "1.26"
 		},
-		"ghcr.io/warrenbuckley/codespace-features/sqlite:latest": {}
+		"ghcr.io/warrenbuckley/codespace-features/sqlite:latest": {},
+		"ghcr.io/devcontainers/features/python:latest": {}
 	},
-	"forwardPorts": [8080, 5432],
 	"customizations": {
 		"vscode": {
 			"settings": {
@@ -18,10 +23,28 @@
 			}
 		}
 	},
-	"postCreateCommand": {
-		"0": "go version",
-		"1": "git config --global --add safe.directory .",
-		"2": "go install github.com/air-verse/air@latest"
+	"postCreateCommand": "go version && git config --global --add safe.directory .",
+	"remoteEnv": {
+		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin",
+		"CK_ENVIRONMENT": "DEVELOPMENNT",
+		"LM_STUDIO_API_KEY": "dummy-auth",
+		"LM_STUDIO_API_BASE": "http://192.168.1.187:1234/v1",
+		"OLLAMA_API_BASE": "http://192.168.1.187:11434"
+	},
+	"forwardPorts": [1234,11434, 8080, 5432],
+	"portsAttributes": {
+		"1234": {
+			"label": "LMStudio",
+			"onAutoForward": "notify"
+		},
+		"11434": {
+			"label": "Ollama",
+			"onAutoForward": "notify"
+		},
+		"8080": {
+			"label": "Frontend",
+			"onAutoForward": "notify"
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
