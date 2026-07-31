@@ -30,3 +30,6 @@ tmp/
 
 # Python files
 .venv/
+
+# bins
+bin/
