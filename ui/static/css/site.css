@@ -1,99 +1,336 @@
-html, body {
+:root {
+  --bg: #14151a;
+  --surface: #1d1f24;
+  --surface-flipped: #dfdfdf;
+  --text-primary: #ece9e2;
+  --text-secondary: #8b8a85;
+  --accent: #6fcdb2;
+  --border: rgba(255, 255, 255, 0.08);
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --cv-menu: #f5f2ea;
+  --cv-menu-text: #16171b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
   height: 100%;
+  margin: 0;
 }
 
 body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Centered hero: a flex container spanning the viewport keeps the
+   title, avatar, and links centered both ways at any screen size. */
+.hero {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.avatar {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  z-index: 1;
+}
+
+.wordmark {
   margin: 0;
-  color: white;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  letter-spacing: -0.02em;
+  animation: kern-in 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  z-index: 1;
 }
 
-video {
-  object-fit: cover;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-.cover {
-  object-fit: cover;
-  width: 100vw;
-  height:100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #000000;
-  opacity: 0.3;
-}
-
-.viewport-header {
+.video-bg {
   position: absolute;
-  /* height: 100vh; */
-  width: 100vw;
-  text-align: center;
-  display: block;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 2px 2px 4px #000000;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.sitebanner {
-  font-size: 6em;
-  font-variant: small-caps;
+/* A nod to the name: the wordmark settles from loose to its final
+   kerning on load, instead of just fading in. */
+@keyframes kern-in {
+  from {
+    letter-spacing: 0.7em;
+    opacity: 0;
+  }
+
+  to {
+    letter-spacing: -0.02em;
+    opacity: 1;
+  }
 }
 
-footer {
-  position: fixed;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: 0;
-  left: 0;
-  height: 10vh;
-  width: 100vw;
-}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark {
+    animation: none;
+  }
 
-.links-container {
-  display: flex;
-  float: left;
-  font-size: 3rem;
-  width: 40vw;
-  margin-left: 30vw;
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    z-index: 1;
+  }
+
+  @keyframes slide-in-fade {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 .links {
   display: flex;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.links a {
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  line-height: 0;
+  transition: color 0.2s ease;
+}
+
+.links a:hover,
+.links a:focus-visible {
+  color: var(--accent);
+}
+
+.cv {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 1.75rem;
+  z-index: 10;
+}
+
+.cv-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.cv-toggle:hover,
+.cv-toggle:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .cv-toggle {
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    border-width: 1.5px;
+    border-color: var(--accent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(111, 205, 178, 0.18);
+  }
+
+  .cv-toggle:hover,
+  .cv-toggle:focus-visible {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45), 0 0 0 3px rgba(111, 205, 178, 0.28);
+  }
+}
+
+.cv-toggle ion-icon {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.cv-toggle[aria-expanded="true"] ion-icon {
+  transform: rotate(180deg);
+}
+
+.cv-menu {
+  position: absolute;
+  bottom: calc(100% + 0.6rem);
+  left: 0;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: var(--cv-menu);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 0.75rem;
+  min-width: 10rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: translateY(0.5rem);
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@keyframes slide-in-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .cv-menu {
+    min-width: 28rem;
+    width:28rem; 
+    padding: 0.6rem;
+  }
+
+  .cv-menu a {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .cv-toggle {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(111, 205, 178, 0.22);
+  }
+
+  .cv-menu {
+    min-width: 34rem;
+    width: 34rem;
+    padding: 0.75rem;
+    border-top-width: 4px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+  }
+
+  .cv-menu a,
+  .accordion-toggle,
+  .full-width-link {
+    font-size: 1.05rem;
+    padding: 1.15rem 1.75rem;
+  }
+
+  .accordion-content li a {
+    font-size: 1rem;
+  }
+}
+
+.cv-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cv-menu a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cv-menu a:hover,
+.cv-menu a:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* General styling for menu items/toggles */
+.cv-menu li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cv-menu li:last-child {
+    border-bottom: none;
+}
+
+.accordion-toggle, .full-width-link, .cv-menu a {
+  display: flex; /* Allows icon/text alignment if needed */
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%; /* Fill the menu container */
+  text-align: left;
+  color: #1a1a1a; /* Dark text color for high contrast */
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.links ul {
-  display: flex;
-  list-style: none;
+.accordion-toggle:hover, .full-width-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.links ul li {
-  margin: 0 2rem;
-  float: left;
+/* Accordion content area */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding: 0; /* Padding handled by nested links/items */
 }
 
-.links ul li a {
-  color: white;
-  text-decoration: none;
-  display: block;
+.accordion-content li a {
+    display: block;
+    padding: 1rem 1.5rem 1rem 2.5rem; /* Indented padding */
+    font-size: 0.95rem;
+    color: #333; /* Slightly different dark shade for sublinks */
 }
 
-#profile {
-  border: 2px solid white;
-  border-radius: 50%;
-  height: 5rem;
-  width: 5rem;
+.cv-menu li[aria-expanded="true"] > .accordion-content {
+  max-height: 200px; /* Needs to be larger than content height */
 }
 
-#brand {
-  height: 5rem;
-  width: 5rem;
+footer {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 479px) {
+  footer {
+    display: none;
+  }
 }

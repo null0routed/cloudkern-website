@@ -23,3 +23,13 @@ go.work.sum
 
 # env file
 .env
+.aider*
+
+# Temp folders
+tmp/
+
+# Python files
+.venv/
+
+# bins
+bin/
