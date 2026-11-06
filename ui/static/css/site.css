@@ -309,6 +309,11 @@ body {
   padding: 0; /* Padding handled by nested links/items */
 }
 
+/* Collapsed accordion panels: kept out of both the viewport and the a11y tree */
+.hidden {
+  display: none;
+}
+
 .accordion-content li a {
     display: block;
     padding: 1rem 1.5rem 1rem 2.5rem; /* Indented padding */
@@ -316,7 +321,7 @@ body {
     color: #333; /* Slightly different dark shade for sublinks */
 }
 
-.cv-menu li[aria-expanded="true"] > .accordion-content {
+.cv-menu .accordion-toggle[aria-expanded="true"] + .accordion-content {
   max-height: 200px; /* Needs to be larger than content height */
 }
 

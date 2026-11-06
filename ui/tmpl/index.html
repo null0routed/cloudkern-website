@@ -5,7 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CloudKern — Andrew Kern</title>
-    <link rel="icon" href="static/media/favicon.ico">
+    <meta name="description" content="Andrew Kern (CloudKern) — software projects, talks, and papers.">
+    <meta name="theme-color" content="#14151a">
+
+    <!-- Open Graph / social link previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CloudKern">
+    <meta property="og:title" content="CloudKern — Andrew Kern">
+    <meta property="og:description" content="Andrew Kern (CloudKern) — software projects, talks, and papers.">
+    <meta property="og:url" content="https://cloudkern.com/">
+    <meta property="og:image" content="https://cloudkern.com/static/media/ck.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CloudKern — Andrew Kern">
+    <meta name="twitter:description" content="Andrew Kern (CloudKern) — software projects, talks, and papers.">
+    <meta name="twitter:image" content="https://cloudkern.com/static/media/ck.png">
+
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- TODO(web-compliance): assets listed below don't exist in ui/root/ yet — enable these
+         once added. The Go server (loadStaticRoutes) already registers a /<name> route for
+         every allowed file in that directory. -->
+    <!--
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <link rel="manifest" href="/site.webmanifest">
+    -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -37,11 +63,24 @@
     </main>
 
     <div class="cv">
-        <ul class="cv-menu" id="cv-menu" role="menu">
-            <li role="none"><button role="menuitem" class="accordion-toggle">Projects</button><ul class="accordion-content hidden"><li>Link to Projects</li></ul></li>
-            <li role="none"><button role="menuitem" class="accordion-toggle">Talks</button><ul class="accordion-content hidden"><li>Link to Talks</li></ul></li>
-            <li role="none"><button role="menuitem" class="accordion-toggle">Papers</button><ul class="accordion-content hidden"><li>Link to Papers</li></ul></li>
-            <li role="none"><a href="static/media/resume.pdf" role="menuitem" class="full-width-link">Résumé</a></li>
+        <!-- TODO(cv): placeholders — replace with real project/talk/paper links -->
+        <ul class="cv-menu" id="cv-menu">
+            <li>
+                <button class="accordion-toggle" type="button" aria-expanded="false" aria-controls="cv-projects">Projects</button>
+                <ul class="accordion-content hidden" id="cv-projects"><li>Link to Projects</li></ul>
+            </li>
+            <li>
+                <button class="accordion-toggle" type="button" aria-expanded="false" aria-controls="cv-talks">Talks</button>
+                <ul class="accordion-content hidden" id="cv-talks"><li>Link to Talks</li></ul>
+            </li>
+            <li>
+                <button class="accordion-toggle" type="button" aria-expanded="false" aria-controls="cv-papers">Papers</button>
+                <ul class="accordion-content hidden" id="cv-papers"><li>Link to Papers</li></ul>
+            </li>
+            <li>
+                <!-- TODO(resume): static/media/resume.pdf doesn't exist yet — this link 404s until added -->
+                <a href="static/media/resume.pdf" class="full-width-link">Résumé</a>
+            </li>
         </ul>
         <button class="cv-toggle" id="cv-toggle" type="button" aria-haspopup="true" aria-expanded="false"
             aria-controls="cv-menu">
@@ -52,10 +91,12 @@
 
     <footer>&copy; 2026 CloudKern. All rights reserved.</footer>
 
-    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+    <!-- Ionicons 8.0.13 — self-hosted: ESM entry + lazy chunks; icons are fetched at runtime
+         from static/vendor/ionicons/svg/ (add new icon SVGs there as needed) -->
+    <script type="module" src="static/vendor/ionicons/ionicons.esm.js"></script>
+    <!-- data-cfasync="false" stops Cloudflare Rocket Loader from rewriting this script, which
+         was breaking the CV menu; the readyState guard in site.js is belt and suspenders -->
     <script data-cfasync="false" src="static/js/site.js"></script>
 </body>
 
 </html>
-

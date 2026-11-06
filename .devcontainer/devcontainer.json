@@ -12,9 +12,10 @@
 	"features": {
 		"ghcr.io/devcontainers/features/go:latest": {
 			"version": "1.26"
-		},
-		"ghcr.io/warrenbuckley/codespace-features/sqlite:latest": {},
-		"ghcr.io/devcontainers/features/python:latest": {}
+		}
+		// Commented out — unused by this project. Re-enable when needed:
+		// "ghcr.io/warrenbuckley/codespace-features/sqlite:latest": {},
+		// "ghcr.io/devcontainers/features/python:latest": {}
 	},
 	"customizations": {
 		"vscode": {
@@ -26,7 +27,7 @@
 	"postCreateCommand": "go version && git config --global --add safe.directory .",
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/home/vscode/.local/bin",
-		"CK_ENVIRONMENT": "DEVELOPMENNT",
+		"CK_ENVIRONMENT": "DEVELOPMENT",
 		"LM_STUDIO_API_KEY": "dummy-auth",
 		"LM_STUDIO_API_BASE": "http://192.168.1.187:1234/v1",
 		"OLLAMA_API_BASE": "http://192.168.1.187:11434"

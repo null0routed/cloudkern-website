@@ -9,18 +9,23 @@ function initCvMenu() {
 
     const accordionToggles = document.querySelectorAll('.accordion-toggle');
 
+    // Collapsed accordion panels keep the `hidden` class (display: none),
+    // so they stay out of both the viewport and the accessibility tree.
+    const panelFor = (button) => {
+        const id = button.getAttribute('aria-controls');
+        return id ? document.getElementById(id) : null;
+    };
+
     accordionToggles.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const parentLi = button.closest('li[role="none"]'); // Get the parent <li>
-            const content = parentLi ? parentLi.querySelector('.accordion-content') : null;
+        button.addEventListener('click', () => {
+            const panel = panelFor(button);
+            if (!panel) return;
 
-            if (!content) return;
+            // Toggle visibility and ARIA state (aria-expanded drives the CSS expand rule)
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', String(!isExpanded));
 
-            // Toggle visibility and ARIA state
-            const isExpanded = button.getAttribute('aria-expanded') === 'true' || false;
-            button.setAttribute('aria-expanded', !isExpanded);
-            
-            content.classList.toggle('hidden');
+            panel.classList.toggle('hidden');
         });
     });
 
@@ -39,10 +44,15 @@ function initCvMenu() {
         if (menu.classList.contains('open')) {
             closeMenu();
         } else {
-            // When opening the main menu, ensure all accordions are closed initially
-            accordionToggles.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
-            menu.classList.add('open');
-            toggle.setAttribute('aria-expanded', 'true');
+            // When opening the main menu, ensure all accordions start collapsed
+            accordionToggles.forEach(btn => {
+                btn.setAttribute('aria-expanded', 'false');
+                const panel = panelFor(btn);
+                if (panel) {
+                    panel.classList.add('hidden');
+                }
+            });
+            openMenu();
         }
     });
 
