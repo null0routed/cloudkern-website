@@ -267,13 +267,27 @@ body {
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+/* Shared hover/focus state for all menu items: subtle dark tint on the menu
+   background, text stays dark. Specificity (.cv-menu .x) is intentionally
+   higher than bamboo's `button[type=button]` rules, which would otherwise
+   win over the button items. */
 .cv-menu a:hover,
 .cv-menu a:focus-visible {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
+  color: #1a1a1a;
+}
+.cv-menu .accordion-toggle:hover,
+.cv-menu .accordion-toggle:focus-visible,
+.cv-menu .full-width-link:hover,
+.cv-menu .full-width-link:focus-visible {
+  background: rgba(0, 0, 0, 0.05);
+  color: #1a1a1a;
 }
 
-/* General styling for menu items/toggles */
+/* General styling for menu items/toggles.
+   The `.cv-menu` prefix raises specificity above bamboo's `button[type=button]`
+   rules (background/display/text-align), keeping all items flush with the menu
+   background. */
 .cv-menu li {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -282,7 +296,7 @@ body {
     border-bottom: none;
 }
 
-.accordion-toggle, .full-width-link, .cv-menu a {
+.cv-menu .accordion-toggle, .cv-menu .full-width-link, .cv-menu a {
   display: flex; /* Allows icon/text alignment if needed */
   justify-content: space-between;
   align-items: center;
@@ -297,8 +311,15 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.accordion-toggle:hover, .full-width-link:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+/* Accordion toggles: caret faces right when collapsed, rotates to face down when open */
+.cv-menu .accordion-toggle ion-icon {
+  font-size: 1rem;
+  flex: 0 0 auto;
+  transition: transform 0.2s ease;
+}
+
+.cv-menu .accordion-toggle[aria-expanded="true"] ion-icon {
+  transform: rotate(90deg);
 }
 
 /* Accordion content area */
